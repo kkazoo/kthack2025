@@ -82,24 +82,21 @@ form button:hover {
 }
 
 .category-Environment {
-  background-color: #d0f0c0;
+  background-color: #d0f0c0;  /* pastel green */
 }
 
 .category-Education {
-  background-color: #ffffff;
+  background-color: #f0e6ff;  /* pastel lavender */
 }
 
 .category-Health {
-  background-color: #ffdbe6;
+  background-color: #ffdbe6;  /* pastel pink */
 }
 
 .category-Community {
-  background-color: #fff4cc;
+  background-color: #fff4cc;  /* pastel yellow */
 }
 
 .category-Misc {
-  background-color: #e6e6fa;
+  background-color: #e6e6fa;  /* pastel light purple */
 }
-
-
-
