@@ -6,12 +6,31 @@
   </head>
   <body>
     <h1 style = "background-color:powderblue;"> Find Volunteer Opportunities That Fit You. </h1>
+
+
+
+
+
+
     
     <h2> Post an Opportunity Below!</h2>
-    <form action="/action_page.php">
-      <label for="opp">Post here:</label><br>
-      <input type="text" id="opp" name="opp"><br><br>
-      <input type="submit" value="Submit">
+    
+
+    <form id = "opportunity-form"> 
+    <input type="text" id="title" placeholder="Opportunity Title" required />
+    <textarea id="description" placeholder="Describe the event"></textarea>
+    <input type="text" id="location" placeholder="Location (City, Address, etc.)" required />
+    <input type="date" id="date" required />
+
+
+      <label for = "category"> Select a Category </category>
+        <select id = "category" required> 
+          <option value = "Environment"> Environment </option> 
+          <option value = "Education"> Education </option> 
+          <option value = "Health"> Health </option> 
+          <option value = "Community"> Community</option> 
+          <option value = "Misc"> Misc </option> 
+        </select>
     </form>
   </body>
 </html>
