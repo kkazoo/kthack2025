@@ -8,10 +8,32 @@
         border: 1px solid #ccc;
         padding: 10px;
         margin-top: 10px;
-        background-color: #f9f9f9;
+        /* Removed background-color here so categories can apply */
         border-radius: 8px;
         margin-bottom: 10px;
       }
+
+      /* Category backgrounds with higher specificity */
+      .opportunity-box.category-Environment {
+        background-color: #d0f0c0;
+      }
+
+      .opportunity-box.category-Education {
+        background-color: #ffffff;
+      }
+
+      .opportunity-box.category-Health {
+        background-color: #ffdbe6;
+      }
+
+      .opportunity-box.category-Community {
+        background-color: #fff4cc;
+      }
+
+      .opportunity-box.category-Misc {
+        background-color: #e6e6fa;
+      }
+
       .delete-btn {
         background-color: #ff4d4d;
         border: none;
@@ -30,28 +52,12 @@
 
     <h3>What is Sigma Volunteer?</h3>
 
-<p>
-  Sigma Volunteer is a community-driven platform that connects individuals with meaningful volunteering opportunities tailored to their interests, location, and availability. Whether you're passionate about environmental cleanups, educational outreach, healthcare support, or community development, Sigma Volunteer helps you discover and post events that make a real impact. With an easy-to-use interface and customizable categories, Sigma Volunteer empowers organizations to share events and individuals to get involved—turning good intentions into measurable change.
-</p>
+    <p>
+      Sigma Volunteer is a community-driven platform that connects individuals with meaningful volunteering opportunities tailored to their interests, location, and availability. Whether you're passionate about environmental cleanups, educational outreach, healthcare support, or community development, Sigma Volunteer helps you discover and post events that make a real impact. With an easy-to-use interface and customizable categories, Sigma Volunteer empowers organizations to share events and individuals to get involved—turning good intentions into measurable change.
+    </p>
 
-<img src="https://raw.githubusercontent.com/kkazoo/kthack2025/main/Sigma%20Volunteer..png" width="2000" height="auto" />
-        <h3>Sigma Volunteer's Mission</h3>
-  <p>
-    At Sigma Volunteer, our mission is to empower individuals to make a meaningful impact in their communities through accessible, purpose-driven volunteering. We believe that everyone has something valuable to offer, and our platform is designed to connect passionate people with opportunities that align with their values, skills, and schedules. Whether you're looking to plant trees, tutor students, or support public health initiatives, Sigma Volunteer is your bridge to action—and change.
+    <img src="https://raw.githubusercontent.com/kkazoo/kthack2025/main/Sigma%20Volunteer..png" width="2000" height="auto" />
 
-
-
-
-
-
-
-
-
-  </p>
-
-
-
-    
     <h1>Find Volunteer Opportunities That Fit You.</h1>
 
     <h2>Post an Opportunity Below!</h2>
@@ -112,6 +118,5 @@
         document.getElementById("opportunity-form").reset();
       });
     </script>
-
   </body>
 </html>
