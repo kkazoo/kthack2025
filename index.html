@@ -46,6 +46,8 @@
         const opportunityBox = document.createElement("div");
         opportunityBox.className = "opportunity-box";
 
+        const formattedDate = new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+
         opportunityBox.innerHTML = `
           <h3>${title}</h3>
           <p><strong>Description:</strong> ${description}</p>
@@ -53,6 +55,10 @@
           <p><strong>Date:</strong> ${date}</p>
           <p><strong>Category:</strong> ${category}</p>
         `;
+
+        opportunityBox.querySelector(".delete-btn").addEventListener("click", function() {
+          displayDiv.removeChild(opportunityBox);
+        });
 
         displayDiv.appendChild(opportunityBox);
         document.getElementById("opportunity-form").reset();
