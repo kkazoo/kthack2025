@@ -81,5 +81,25 @@ form button:hover {
   margin-top: 0;
 }
 
+.category-Environment {
+  background-color: #d0f0c0;
+}
+
+.category-Education {
+  background-color: #ffffff;
+}
+
+.category-Health {
+  background-color: #ffdbe6;
+}
+
+.category-Community {
+  background-color: #fff4cc;
+}
+
+.category-Misc {
+  background-color: #e6e6fa;
+}
+
 
 
