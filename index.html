@@ -8,12 +8,10 @@
         border: 1px solid #ccc;
         padding: 10px;
         margin-top: 10px;
-        /* Removed background-color here so categories can apply */
         border-radius: 8px;
         margin-bottom: 10px;
       }
-
-      /* Category backgrounds with higher specificity */
+    
       .opportunity-box.category-Environment {
         background-color: #d0f0c0;
       }
@@ -48,6 +46,60 @@
     </style>
   </head>
   <body>
+        .navbar {
+      display: flex;
+      justify-content: center;
+      background-color: #004080;
+      padding: 10px 0;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar a:hover {
+      background-color: #0059b3;
+    }
+
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#post">Post Opportunity</a>
+  </div>
+
+  <section id="home">
+    <h1> Welcome to Sigma Volunteer</h1>
+    <p>Helping you find and share community service opportunities.</p>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We're a student-built platform to connect volunteers with meaningful causes.</p>
+  </section>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <p>Answers to the most common questions about volunteering and using our site.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email us at geoffreygian1@gmail.com</p>
+  </section>
+
     <h1> Be the change. Start with Sigma. </h1>
 
     <h3>What is Sigma Volunteer?</h3>
@@ -118,59 +170,6 @@
         document.getElementById("opportunity-form").reset();
       });
     </script>
-    .navbar {
-      display: flex;
-      justify-content: center;
-      background-color: #004080;
-      padding: 10px 0;
-    }
-
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      padding: 14px 20px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-    }
-
-    .navbar a:hover {
-      background-color: #0059b3;
-    }
-
-    body {
-      margin: 0;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="navbar">
-    <a href="#home">Home</a>
-    <a href="#about">About Us</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-    <a href="#post">Post Opportunity</a>
-  </div>
-
-  <section id="home">
-    <h1> Welcome to Sigma Volunteer</h1>
-    <p>Helping you find and share community service opportunities.</p>
-  </section>
-
-  <section id="about">
-    <h2>About Us</h2>
-    <p>We're a student-built platform to connect volunteers with meaningful causes.</p>
-  </section>
-
-  <section id="faq">
-    <h2>FAQ</h2>
-    <p>Answers to the most common questions about volunteering and using our site.</p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email us at geoffreygian1@gmail.com</p>
-  </section>
 
   </body>
 </html>
