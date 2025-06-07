@@ -77,7 +77,7 @@
         const displayDiv = document.getElementById("opportunity-display");
 
         const opportunityBox = document.createElement("div");
-        opportunityBox.className = "opportunity-box";
+        opportunityBox.className = `opportunity-box category-${category}`;
 
         const formattedDate = new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
 
