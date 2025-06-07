@@ -8,10 +8,12 @@
         border: 1px solid #ccc;
         padding: 10px;
         margin-top: 10px;
+        /* Removed background-color here so categories can apply */
         border-radius: 8px;
         margin-bottom: 10px;
       }
-    
+
+      /* Category backgrounds with higher specificity */
       .opportunity-box.category-Environment {
         background-color: #d0f0c0;
       }
@@ -46,60 +48,6 @@
     </style>
   </head>
   <body>
-        .navbar {
-      display: flex;
-      justify-content: center;
-      background-color: #004080;
-      padding: 10px 0;
-    }
-
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      padding: 14px 20px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
-    }
-
-    .navbar a:hover {
-      background-color: #0059b3;
-    }
-
-    body {
-      margin: 0;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="navbar">
-    <a href="#home">Home</a>
-    <a href="#about">About Us</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-    <a href="#post">Post Opportunity</a>
-  </div>
-
-  <section id="home">
-    <h1> Welcome to Sigma Volunteer</h1>
-    <p>Helping you find and share community service opportunities.</p>
-  </section>
-
-  <section id="about">
-    <h2>About Us</h2>
-    <p>We're a student-built platform to connect volunteers with meaningful causes.</p>
-  </section>
-
-  <section id="faq">
-    <h2>FAQ</h2>
-    <p>Answers to the most common questions about volunteering and using our site.</p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email us at geoffreygian1@gmail.com</p>
-  </section>
-
     <h1> Be the change. Start with Sigma. </h1>
 
     <h3>What is Sigma Volunteer?</h3>
@@ -135,41 +83,105 @@
 
     <div id="opportunity-display"></div>
 
-    <script>
-      document.getElementById("opportunity-form").addEventListener("submit", function(event) {
-        event.preventDefault();
+   <script>
+    document.getElementById("opportunity-form").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-        const title = document.getElementById("title").value;
-        const description = document.getElementById("description").value;
-        const location = document.getElementById("location").value;
-        const date = document.getElementById("date").value;
-        const category = document.getElementById("category").value;
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const location = document.getElementById("location").value;
+      const date = document.getElementById("date").value;
+      const category = document.getElementById("category").value;
 
-        const displayDiv = document.getElementById("opportunity-display");
+      const displayDiv = document.getElementById("opportunity-display");
 
-        const opportunityBox = document.createElement("div");
-        opportunityBox.className = `opportunity-box category-${category}`;
+    
+      const opportunityBox = document.createElement("div");
+      opportunityBox.className = `opportunity-box category-${category}`;
 
-        const formattedDate = new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      const formattedDate = new Date(date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
 
+      opportunityBox.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Description:</strong> ${description}</p>
+        <p><strong>Location:</strong> ${location}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>Category:</strong> ${category}</p>
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      `;
+
+      opportunityBox.querySelector(".delete-btn").addEventListener("click", function() {
+        displayDiv.removeChild(opportunityBox);
+      });
+
+      opportunityBox.querySelector(".edit-btn").addEventListener("click", function() {
+     
         opportunityBox.innerHTML = `
-          <h3>${title}</h3>
-          <p><strong>Description:</strong> ${description}</p>
-          <p><strong>Location:</strong> ${location}</p>
-          <p><strong>Date:</strong> ${formattedDate}</p>
-          <p><strong>Category:</strong> ${category}</p>
-          <button class="delete-btn">Delete</button>
+          <input type="text" class="edit-title" value="${title}" />
+          <textarea class="edit-description">${description}</textarea>
+          <input type="text" class="edit-location" value="${location}" />
+          <input type="date" class="edit-date" value="${date}" />
+          <select class="edit-category">
+            <option value="Environment" ${category === "Environment" ? "selected" : ""}>Environment</option>
+            <option value="Education" ${category === "Education" ? "selected" : ""}>Education</option>
+            <option value="Health" ${category === "Health" ? "selected" : ""}>Health</option>
+            <option value="Community" ${category === "Community" ? "selected" : ""}>Community</option>
+            <option value="Misc" ${category === "Misc" ? "selected" : ""}>Misc</option>
+          </select>
+          <button class="save-btn">Save</button>
+          <button class="cancel-btn">Cancel</button>
         `;
+        
+        opportunityBox.querySelector(".save-btn").addEventListener("click", function() {
+          const newTitle = opportunityBox.querySelector(".edit-title").value;
+          const newDescription = opportunityBox.querySelector(".edit-description").value;
+          const newLocation = opportunityBox.querySelector(".edit-location").value;
+          const newDate = opportunityBox.querySelector(".edit-date").value;
+          const newCategory = opportunityBox.querySelector(".edit-category").value;
 
-        displayDiv.appendChild(opportunityBox);
+          opportunityBox.className = `opportunity-box category-${newCategory}`;
 
-        opportunityBox.querySelector(".delete-btn").addEventListener("click", function() {
-          displayDiv.removeChild(opportunityBox);
+          const newFormattedDate = new Date(newDate).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+
+          opportunityBox.innerHTML = `
+            <h3>${newTitle}</h3>
+            <p><strong>Description:</strong> ${newDescription}</p>
+            <p><strong>Location:</strong> ${newLocation}</p>
+            <p><strong>Date:</strong> ${newFormattedDate}</p>
+            <p><strong>Category:</strong> ${newCategory}</p>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          `;
+        
+          opportunityBox.querySelector(".delete-btn").addEventListener("click", function() {
+            displayDiv.removeChild(opportunityBox);
+          });
+          opportunityBox.querySelector(".edit-btn").addEventListener("click", arguments.callee);
         });
 
-        document.getElementById("opportunity-form").reset();
-      });
-    </script>
+        opportunityBox.querySelector(".cancel-btn").addEventListener("click", function() {
+          opportunityBox.className = `opportunity-box category-${category}`;
+          opportunityBox.innerHTML = `
+            <h3>${title}</h3>
+            <p><strong>Description:</strong> ${description}</p>
+            <p><strong>Location:</strong> ${location}</p>
+            <p><strong>Date:</strong> ${formattedDate}</p>
+            <p><strong>Category:</strong> ${category}</p>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          `;
 
+          opportunityBox.querySelector(".delete-btn").addEventListener("click", function() {
+            displayDiv.removeChild(opportunityBox);
+          });
+          opportunityBox.querySelector(".edit-btn").addEventListener("click", arguments.callee);
+        });
+      });
+
+      displayDiv.appendChild(opportunityBox);
+      document.getElementById("opportunity-form").reset();
+    });
+  </script>
   </body>
 </html>
