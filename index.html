@@ -6,6 +6,7 @@
     <style>
       body {
         margin: 0;
+        font-family: Arial, sans-serif;
       }
 
       .navbar {
@@ -20,7 +21,6 @@
         text-decoration: none;
         padding: 14px 20px;
         font-weight: bold;
-        font-family: Arial, sans-serif;
       }
 
       .navbar a:hover {
@@ -55,17 +55,47 @@
         background-color: #e6e6fa;
       }
 
-      .delete-btn {
-        background-color: #ff4d4d;
+      .delete-btn,
+      .save-btn,
+      .signup-btn {
+        background-color: #0073e6;
         border: none;
         color: white;
-        padding: 5px 10px;
+        padding: 6px 12px;
         border-radius: 5px;
         cursor: pointer;
+        margin-right: 5px;
+        margin-top: 5px;
+      }
+
+      .delete-btn {
+        background-color: #ff4d4d;
       }
 
       .delete-btn:hover {
         background-color: #cc0000;
+      }
+
+      .save-btn:hover,
+      .signup-btn:hover {
+        background-color: #005bb5;
+      }
+
+      #signup-modal {
+        display: none;
+        position: fixed;
+        top: 20%;
+        left: 30%;
+        background: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        z-index: 1000;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
+
+      #saved-opportunities {
+        margin-top: 20px;
       }
     </style>
   </head>
@@ -102,17 +132,11 @@
     <h1>Be the change. Start with Sigma.</h1>
 
     <h3>What is Sigma Volunteer?</h3>
-
     <p>
-      Sigma Volunteer is a community-driven platform that connects individuals with meaningful volunteering opportunities tailored to their interests, location, and availability. Whether you're passionate about environmental cleanups, educational outreach, healthcare support, or community development, Sigma Volunteer helps you discover and post events that make a real impact. With an easy-to-use interface and customizable categories, Sigma Volunteer empowers organizations to share events and individuals to get involved—turning good intentions into measurable change.
+      Sigma Volunteer is a community-driven platform that connects individuals with meaningful volunteering opportunities tailored to their interests, location, and availability. Whether you're passionate about environmental cleanups, educational outreach, healthcare support, or community development, Sigma Volunteer helps you discover and post events that make a real impact.
     </p>
 
-    <img src="https://raw.githubusercontent.com/kkazoo/kthack2025/main/Sigma%20Volunteer..png" width="1000" height="auto" />
-
-    <!-- Fixed ID from 'contact' to 'post' -->
-    <section id="post">
-      <h1>Find Volunteer Opportunities That Fit You.</h1>
-    </section>
+    <img src="https://raw.githubusercontent.com/kkazoo/kthack2025/main/Sigma%20Volunteer..png" width="500" height="auto" />
 
     <h2>Post an Opportunity Below!</h2>
 
@@ -137,8 +161,23 @@
 
     <div id="opportunity-display"></div>
 
+    <h2>Saved Opportunities</h2>
+    <button onclick="loadSaved()">Load Saved</button>
+    <div id="saved-opportunities"></div>
+
+    <!-- Signup Modal -->
+    <div id="signup-modal">
+      <h3>Volunteer Sign-Up</h3>
+      <input type="text" id="vol-name" placeholder="Your Name" required /><br><br>
+      <input type="email" id="vol-email" placeholder="Your Email" required /><br><br>
+      <button onclick="submitSignup()">Submit</button>
+      <button onclick="closeModal()">Cancel</button>
+    </div>
+
     <script>
-      document.getElementById("opportunity-form").addEventListener("submit", function(event) {
+      let currentOpportunity = null;
+
+      document.getElementById("opportunity-form").addEventListener("submit", function (event) {
         event.preventDefault();
 
         const title = document.getElementById("title").value;
@@ -165,17 +204,74 @@
           <p><strong>Date:</strong> ${formattedDate}</p>
           <p><strong>Category:</strong> ${category}</p>
           <button class="delete-btn">Delete</button>
+          <button class="save-btn">Save</button>
+          <button class="signup-btn">Sign Up</button>
         `;
 
         displayDiv.appendChild(opportunityBox);
 
-        opportunityBox.querySelector(".delete-btn").addEventListener("click", function() {
+        opportunityBox.querySelector(".delete-btn").addEventListener("click", function () {
           displayDiv.removeChild(opportunityBox);
+        });
+
+        opportunityBox.querySelector(".save-btn").addEventListener("click", function () {
+          const opportunity = { title, description, location, date: formattedDate, category };
+          const saved = JSON.parse(localStorage.getItem("savedOpportunities")) || [];
+          saved.push(opportunity);
+          localStorage.setItem("savedOpportunities", JSON.stringify(saved));
+          alert("Opportunity saved!");
+        });
+
+        opportunityBox.querySelector(".signup-btn").addEventListener("click", function () {
+          currentOpportunity = { title, description, location, date: formattedDate, category };
+          document.getElementById("signup-modal").style.display = "block";
         });
 
         document.getElementById("opportunity-form").reset();
       });
+
+      function loadSaved() {
+        const savedDiv = document.getElementById("saved-opportunities");
+        savedDiv.innerHTML = "";
+
+        const saved = JSON.parse(localStorage.getItem("savedOpportunities")) || [];
+
+        saved.forEach((op) => {
+          const div = document.createElement("div");
+          div.className = `opportunity-box category-${op.category}`;
+          div.innerHTML = `
+            <h3>${op.title}</h3>
+            <p><strong>Description:</strong> ${op.description}</p>
+            <p><strong>Location:</strong> ${op.location}</p>
+            <p><strong>Date:</strong> ${op.date}</p>
+            <p><strong>Category:</strong> ${op.category}</p>
+          `;
+          savedDiv.appendChild(div);
+        });
+      }
+
+      function submitSignup() {
+        const name = document.getElementById("vol-name").value;
+        const email = document.getElementById("vol-email").value;
+
+        if (!name || !email) {
+          alert("Please enter both name and email.");
+          return;
+        }
+
+        const signups = JSON.parse(localStorage.getItem("signups")) || [];
+        signups.push({ name, email, opportunity: currentOpportunity });
+        localStorage.setItem("signups", JSON.stringify(signups));
+
+        alert("You’ve signed up!");
+        closeModal();
+      }
+
+      function closeModal() {
+        document.getElementById("signup-modal").style.display = "none";
+        document.getElementById("vol-name").value = "";
+        document.getElementById("vol-email").value = "";
+      }
     </script>
   </body>
 </html>
-
